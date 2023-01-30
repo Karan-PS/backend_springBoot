@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.StudentEntity;
@@ -14,13 +15,13 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 	
-//	@RequestMapping("/")
-//	public String hello() {
-//		return "Hello";
-//	}
+	@RequestMapping("/")
+	public String hello() {
+		return "Hello";
+	}
 	
 	//Student Registration function
-	@PostMapping("/studentRegintration")
+	@PostMapping("/studentRegistration")
 	public boolean registerStudent(@RequestBody StudentEntity student){
 		StudentEntity studentObj = null;
 		String tempName = student.getName();
