@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.AdminEntity;
+import com.example.demo.entity.AllotmentEntity;
 import com.example.demo.entity.CourseEntity;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.CourseService;
@@ -69,6 +70,13 @@ public class AdminController {
 	public List<CourseEntity> displayCourse() {
 		 List<CourseEntity> list = courseService.displayCourse();
 		return list;	
+	}
+	
+	//Allotment save Course,Marks
+	@PostMapping("/saveStudentMarks")
+	public boolean saveStudentMarks(@RequestBody AllotmentEntity allotment) {
+		 courseService.saveStudentCourseandMarks(allotment);
+		return true;
 	}
 		
 }

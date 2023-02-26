@@ -1,11 +1,14 @@
 package com.example.demo.entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="course")
 public class CourseEntity {
 
 	@Id
@@ -15,25 +18,46 @@ public class CourseEntity {
 	private String course;
 	private String college;
 	private String availableSeats;
+	private String minMarks;
 	
 	public CourseEntity() {
 		super();
 	}
 
-	public CourseEntity(String course, String college, String availableSeats) {
+	
+
+	public String getMinMarks() {
+		return minMarks;
+	}
+
+
+
+	public void setMinMarks(String minMarks) {
+		this.minMarks = minMarks;
+	}
+
+
+
+	public CourseEntity(String course, String college, String availableSeats, String minMarks) {
 		super();
 		this.course = course;
 		this.college = college;
 		this.availableSeats = availableSeats;
+		this.minMarks = minMarks;
 	}
 
-	public CourseEntity(int id, String course, String college, String availableSeats) {
+
+
+	public CourseEntity(int id, String course, String college, String availableSeats, String minMarks) {
 		super();
 		Id = id;
 		this.course = course;
 		this.college = college;
 		this.availableSeats = availableSeats;
+		this.minMarks = minMarks;
 	}
+
+
 
 	public int getId() {
 		return Id;
