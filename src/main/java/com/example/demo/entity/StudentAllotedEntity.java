@@ -7,66 +7,56 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="notRequired_AE")
-public class AllotmentEntity {
+@Table(name="allotted_student")
+public class StudentAllotedEntity {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int Id;
 	private String studentName;
 	private String course;
-	private String marks;
 	
-	public AllotmentEntity() {
+	
+	
+	
+	public StudentAllotedEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AllotmentEntity(String studentName, String course, String marks) {
+
+	public StudentAllotedEntity(String studentName, String course) {
 		super();
 		this.studentName = studentName;
 		this.course = course;
-		this.marks = marks;
 	}
-
-	public AllotmentEntity(int id, String studentName, String course, String marks) {
+	
+	
+	public StudentAllotedEntity(int id, String studentName, String course) {
 		super();
 		Id = id;
 		this.studentName = studentName;
 		this.course = course;
-		this.marks = marks;
 	}
+
 
 	public int getId() {
 		return Id;
 	}
-
 	public void setId(int id) {
 		Id = id;
 	}
-
 	public String getStudentName() {
 		return studentName;
 	}
-
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
-
 	public String getCourse() {
 		return course;
 	}
-
 	public void setCourse(String course) {
 		this.course = course;
-	}
-
-	public String getMarks() {
-		return marks;
-	}
-
-	public void setMarks(String marks) {
-		this.marks = marks;
 	}
 	
 	

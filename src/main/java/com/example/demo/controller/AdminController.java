@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.AdminEntity;
 import com.example.demo.entity.AllotmentEntity;
 import com.example.demo.entity.CourseEntity;
+import com.example.demo.entity.StudentAllotedEntity;
+import com.example.demo.repository.CourseRepository;
+import com.example.demo.repository.StudentAllotedRepository;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.CourseService;
 
@@ -22,6 +25,13 @@ public class AdminController {
 	
 	@Autowired
 	CourseService courseService;
+	
+	@Autowired
+	CourseRepository courseRepository;
+	
+	@Autowired
+	StudentAllotedRepository studentAllotedRepository;
+	
 	
 	//Admin Registration Function
 	@PostMapping("/adminRegistration")
@@ -72,11 +82,32 @@ public class AdminController {
 		return list;	
 	}
 	
-	//Allotment save Course,Marks
+	//Allotment process save Course,Marks and display if the student is allotted a course or not
 	@PostMapping("/saveStudentMarks")
-	public boolean saveStudentMarks(@RequestBody AllotmentEntity allotment) {
-		 courseService.saveStudentCourseandMarks(allotment);
-		return true;
+	public String saveStudentMarks(@RequestBody AllotmentEntity allotment) {
+		
+		int tempMarks = Integer.parseInt(allotment.getMarks());
+		String tempCourse = allotment.getCourse();
+		StudentAllotedEntity obj = new StudentAllotedEntity(allotment.getStudentName(),allotment.getCourse());
+		
+		int tempMinMarks = Integer.parseInt(courseRepository.getMarksByCourse(tempCourse));
+		int tempSeat = Integer.parseInt(courseRepository.getSeats(tempCourse));
+		
+		if(tempMarks >= tempMinMarks) {
+			studentAllotedRepository.save(obj);
+			String newSeat = String.valueOf(tempSeat-1);
+			courseRepository.updateSeatsByCourse( newSeat,tempCourse);
+			return "Allotted";
+		}
+		 
+		return "Not Allotted";
+	}
+	
+	//Display allotted students
+	@GetMapping("/getAllottedStudents")
+	public List<StudentAllotedEntity> displayAllotedStudents() {
+		 List<StudentAllotedEntity> list = studentAllotedRepository.findAll();
+		return list;	
 	}
 		
 }
